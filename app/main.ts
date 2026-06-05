@@ -42,7 +42,7 @@ async function main() {
   if (response.choices[0].message.tool_calls && response.choices[0].message.tool_calls.length > 0){
     console.log(response.choices[0].message.tool_calls[0].function.name);
     
-    if(response.choices[0].tool_calls[0].function.name == "Read"){
+    if(response.choices[0].message.tool_calls[0].function.name == "Read"){
         Read(JSON.parse(response.choices[0].message.tool_calls[0].function.arguments.file_path))
     }
   }
