@@ -38,7 +38,7 @@ async function main() {
   if (!response.choices || response.choices.length === 0) {
     throw new Error("no choices in response");
   }
-  console.log(JSON.parse(response.choices[0].message.tool_calls[0].function));
+  console.log(JSON.parse(response.choices[0].message.tool_calls[0]));
   if (response.choices[0].message.tool_calls && response.choices[0].message.tool_calls.length > 0){
     if(response.choices[0].message.tool_calls[0].function.name == "Read"){
         console.log(JSON.parse(response.choices[0].message.tool_calls[0].function.arguments.file_path));
