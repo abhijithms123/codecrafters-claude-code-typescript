@@ -23,27 +23,31 @@ async function main() {
   const response = await client.chat.completions.create({
     model: "anthropic/claude-haiku-4.5",
     messages: [{ role: "user", content: prompt }],
-    tools:[{type: "function",function: {name : "read", description: "Read and return the contents of a file", parameters: {
-      type: "object",
-      properties: {
-        file_path: {
-          type: "string",
-          description: "The path to the file to read"
+    tools: [{
+      type: "function", function: {
+        name: "read", description: "Read and return the contents of a file", parameters: {
+          type: "object",
+          properties: {
+            file_path: {
+              type: "string",
+              description: "The path to the file to read"
+            }
+          },
+          required: ["file_path"]
         }
-      },
-      required: ["file_path"]
-    }}}]
+      }
+    }]
   });
 
   if (!response.choices || response.choices.length === 0) {
     throw new Error("no choices in response");
   }
   // console.log(response.choices[0].message.tool_calls[0].function);
-  if (response.choices[0].message.tool_calls && response.choices[0].message.tool_calls.length > 0){
-    if(response.choices[0].message.tool_calls[0].function.name == "read"){
-        // console.log(JSON.parse(response.choices[0].message.tool_calls[0].function.arguments.file_path));
-        
-        read(JSON.parse(response.choices[0].message.tool_calls[0].function.arguments).file_path)
+  if (response.choices[0].message.tool_calls && response.choices[0].message.tool_calls.length > 0) {
+    if (response.choices[0].message.tool_calls[0].function.name == "read") {
+      // console.log(JSON.parse(response.choices[0].message.tool_calls[0].function.arguments.file_path));
+
+      read(JSON.parse(response.choices[0].message.tool_calls[0].function.arguments).file_path)
     }
   }
   else {
@@ -55,12 +59,10 @@ async function main() {
 }
 
 
-function read(filepath: string){
-  console.log("inside tool");
-  
-    const fileContent = fs.readFileSync(filepath, 'utf-8');
-    console.log(fileContent);
-    
+function read(filepath: string) {
+  const fileContent = fs.readFileSync(filepath, 'utf-8');
+  console.log(fileContent);
+
 }
 
 main();
