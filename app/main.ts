@@ -41,7 +41,7 @@ async function main() {
 
   if (response.choices[0].tool_calls && response.choices[0].tool_calls.length > 0){
     if(response.choices[0].tool_calls[0].fucntion.name == "Read"){
-        Read(JSON.parse(response.choices[0].tool_calls.functions.arguments).file_path)
+        Read(JSON.parse(response.choices[0].tool_calls.functions.arguments.file_path))
     }
   }
   else {
