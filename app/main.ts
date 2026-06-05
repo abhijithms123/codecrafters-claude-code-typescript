@@ -41,6 +41,8 @@ async function main() {
 
   if (response.choices[0].message.tool_calls && response.choices[0].message.tool_calls.length > 0){
     if(response.choices[0].message.tool_calls[0].function.name == "Read"){
+        console.log(JSON.parse(response.choices[0].message.tool_calls[0].function.arguments.file_path));
+        
         Read(JSON.parse(response.choices[0].message.tool_calls[0].function.arguments.file_path))
     }
   }
