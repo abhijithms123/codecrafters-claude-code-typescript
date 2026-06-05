@@ -38,7 +38,7 @@ async function main() {
   if (!response.choices || response.choices.length === 0) {
     throw new Error("no choices in response");
   }
-  console.log(response.choices);
+  console.log(response.choices.message);
   if (response.choices[0].tool_calls && response.choices[0].tool_calls.length > 0){
     console.log(response.choices[0].tool_calls[0].fucntion.name);
     
