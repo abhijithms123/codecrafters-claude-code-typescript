@@ -54,6 +54,8 @@ async function main() {
 
 
 function Read(filepath: string){
+    console.log(filepath);
+    
     const fileContent = fs.readFileSync(filepath, 'utf-8');
     console.log(fileContent);
     
