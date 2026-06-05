@@ -38,10 +38,8 @@ async function main() {
   if (!response.choices || response.choices.length === 0) {
     throw new Error("no choices in response");
   }
-  console.log(response.choices[0].message);
+
   if (response.choices[0].message.tool_calls && response.choices[0].message.tool_calls.length > 0){
-    console.log(response.choices[0].message.tool_calls[0].function.name);
-    
     if(response.choices[0].message.tool_calls[0].function.name == "Read"){
         Read(JSON.parse(response.choices[0].message.tool_calls[0].function.arguments.file_path))
     }
@@ -56,8 +54,6 @@ async function main() {
 
 
 function Read(filepath: string){
-    console.log(filepath);
-    
     const fileContent = fs.readFileSync(filepath, 'utf-8');
     console.log(fileContent);
     
