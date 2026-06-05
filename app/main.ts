@@ -38,12 +38,12 @@ async function main() {
   if (!response.choices || response.choices.length === 0) {
     throw new Error("no choices in response");
   }
-  console.log(response.choices[0].message.tool_calls[0].function);
+  // console.log(response.choices[0].message.tool_calls[0].function);
   if (response.choices[0].message.tool_calls && response.choices[0].message.tool_calls.length > 0){
-    if(response.choices[0].message.tool_calls[0].function.name == "Read"){
-        console.log(JSON.parse(response.choices[0].message.tool_calls[0].function.arguments.file_path));
+    if(response.choices[0].message.tool_calls[0].function.name == "read"){
+        // console.log(JSON.parse(response.choices[0].message.tool_calls[0].function.arguments.file_path));
         
-        Read(JSON.parse(response.choices[0].message.tool_calls[0].function.arguments.file_path))
+        read(JSON.parse(response.choices[0].message.tool_calls[0].function.arguments).file_path)
     }
   }
   else {
@@ -55,7 +55,7 @@ async function main() {
 }
 
 
-function Read(filepath: string){
+function read(filepath: string){
   console.log("inside tool");
   
     const fileContent = fs.readFileSync(filepath, 'utf-8');
